@@ -13,6 +13,8 @@
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "axios": "^1.6.7",
+    "esri-leaflet": "^3.0.12",
+    "esri-leaflet-geocoder": "^3.1.4",
     "framer-motion": "^11.0.6",
     "geolocation": "^0.2.0",
     "leaflet": "^1.9.4",

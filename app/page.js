@@ -34,6 +34,7 @@ export default function Home() {
                       attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
+                 {/* <GeoSearchMap/> */}
                   </LayersControl.Overlay>
                   <Legend/>
                  <Layermap/>

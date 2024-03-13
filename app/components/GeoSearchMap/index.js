@@ -1,0 +1,1 @@
+export {Geosearch} from './GeoSearchMap'

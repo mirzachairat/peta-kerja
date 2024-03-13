@@ -1,1 +1,0 @@
-export {Geosearch} from './Geosearch'
