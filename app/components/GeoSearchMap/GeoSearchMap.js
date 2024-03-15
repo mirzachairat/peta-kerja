@@ -1,42 +1,95 @@
 'use client'
 
-import { useEffect } from 'react';
-import { MapContainer, TileLayer } from 'react-leaflet';
-import L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
-import 'esri-leaflet';
-import 'esri-leaflet-geocoder/dist/esri-leaflet-geocoder.css';
-import 'esri-leaflet-geocoder';
+import React,{ useState } from 'react';
+import { MapContainer} from 'react-leaflet';
+import {
+  Drawer,
+  DrawerBody,
+  DrawerHeader,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+  Input, 
+  Stack,
+  List,
+  ListItem,
+  ListIcon,
+  InputGroup,
+  IconButton,
+  useDisclosure,
+  Button,
+} from '@chakra-ui/react'
+import { SearchIcon,MdCheckCircle,MdSettings } from '@chakra-ui/icons'
 
 const GeoSearchMap = () => {
-  useEffect(() => {
-    const map = L.map('map').setView([51.505, -0.09], 13);
+  const [searchText, setSearchText] = useState("");
+  const [listPlace, setListPlace] =useState("");
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const btnRef = React.useRef()
 
-    // Add Esri geosearch control
-    const searchControl = L.esri.Geocoding.geosearch({
-      position: 'topright',
-      useMapBounds: false,
-      providers: [
-        L.esri.Geocoding.arcgisOnlineProvider({
-          apikey: 'YOUR_ARCGIS_API_KEY', // Replace with your ArcGIS API key
-        }),
-      ],
-    }).addTo(map);
+  const handleSearch = () => {
+    // Fetch data from the API
+    fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(searchText)}`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setListPlace(JSON.parse(data));
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+  };
 
-    // Handle search results
-    searchControl.on('results', function (data) {
-      if (data.results.length > 0) {
-        const { latlng } = data.results[0];
-        map.setView(latlng, 13);
-      }
-    });
+    
 
-    return () => {
-      map.remove();
-    };
-  }, []);
+  return (
+    <>
+      <Button ref={btnRef} colorScheme='teal' onClick={onOpen} style={{position:'absolute',zIndex:1000, marginTop:100}}>
+        Cari Lokasi
+      </Button>
+      <Drawer
+        isOpen={isOpen}
+        placement='left'
+        onClose={onClose}
+        finalFocusRef={btnRef}
+      >
+        <DrawerOverlay />
+        <DrawerContent>
+          <DrawerCloseButton />
+          <DrawerHeader>Cari Nama dan Tempat</DrawerHeader>
 
-  return <div id="map" style={{ height: '500px', width: '100%' }} />;
-};
+          <DrawerBody>
+              <Stack spacing={4}>
+                  <InputGroup>
+                    <IconButton
+                      colorScheme='blue'
+                      aria-label='Search database'
+                      icon={<SearchIcon />}
+                    />
+                    <Input type='tel' 
+                    placeholder='Cari Nama dan Tempat' 
+                    value={searchText}
+                    onChange={(e) => setSearchText(e.target.value)}/>
+                  </InputGroup>
+              </Stack>
+              <List spacing={3}>
+                {listPlace.map((item)=>{                    
+                      <ListItem key={item}>
+                        <ListIcon as={MdCheckCircle} color='green.500' />
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                      </ListItem>
+                  })
+                }
+              </List>    
+          </DrawerBody>
+        </DrawerContent>
+      </Drawer>
+    </>
+  );
+}
 
 export default GeoSearchMap;

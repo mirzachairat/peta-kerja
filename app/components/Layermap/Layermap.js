@@ -1,5 +1,5 @@
 'use client'
-import { LayersControl, WMSTileLayer } from "react-leaflet"
+import { LayersControl, WMSTileLayer, TileLayer } from "react-leaflet"
 
 const Layermap = () => {
 
@@ -45,6 +45,12 @@ const Layermap = () => {
     ]
     return(
       <>
+      <LayersControl.Overlay checked name="Base Map">
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+      </LayersControl.Overlay>
        {dummyData.map((wms)=>(
           <LayersControl.Overlay key={wms.id} checked name={wms.title}>  
           <WMSTileLayer
