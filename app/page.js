@@ -1,7 +1,7 @@
 'use client'
 
-import { useState } from 'react';
-import Head from 'next/head';
+import React, { useState,useRef } from 'react';
+import Head from 'next/head'
 import Layout from './components/Layout'
 import Section from './components/Section'
 import Layermap from './components/Layermap'
@@ -13,14 +13,13 @@ import 'leaflet-draw/dist/leaflet.draw.css'
 import styles from './styles/Home.module.scss'
 import Legend from './components/Legend'
 import CurrentLocation from './components/CurrentLocation/CurrentLocation'
-import GeoSearchMap from './components/GeoSearchMap/GeoSearchMap';
-import { ChakraProvider } from '@chakra-ui/react';
+import { ChakraProvider,Button } from '@chakra-ui/react';
+import Drawertool from './components/Drawertool';
 
-
-export default function Home() {  
-  const [selectPosition, setSelectPosition] = useState("");
-  
+export default function Home() {
   const DEFAULT_CENTER = [-6.179998000000027, 106.83000000000003];
+  const [centerpoint, setCenterPoint] = useState(DEFAULT_CENTER);
+
   return (
     <ChakraProvider>
       <Layout>
@@ -28,17 +27,18 @@ export default function Home() {
           <title>PETA KERJA</title>
           <meta name="description" content="Create mapping apps with Next.js Leaflet Starter" />
           <link rel="icon" href="/favicon.ico" />
+          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBWUssGjqzdh26emlYtoy1mxEYcTBPYaCM&libraries=places"></script>
         </Head>
 
         <Section>
-            <Map className={styles.homeMap} height={100} center={DEFAULT_CENTER} zoom={15}>
-              {({ TileLayer, LayersControl,FeatureGroup}) => (
+            <Map className={styles.homeMap} height={100} center={centerpoint} zoom={13} style={{position:'absolute',zIndex:1}}>
+              {({LayersControl,FeatureGroup}) => (
                 <>
-                  <GeoSearchMap/>
+                  <Drawertool/>
+                  <CurrentLocation centerpoint={centerpoint}/>
                   <LayersControl position="topright">
                     <Legend/>
-                  <Layermap/>
-                  <CurrentLocation/>
+                    <Layermap/>
                   </LayersControl>
                   {/* layer group control */}
                   <FeatureGroup>
@@ -48,8 +48,7 @@ export default function Home() {
                         rectangle: false,
                         circle: false,
                       }}
-                    />
-                    
+                    />       
                   </FeatureGroup>
                   <ScaleControl imperial={false} maxWidth={500} />
                 </>

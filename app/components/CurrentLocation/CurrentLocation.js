@@ -1,24 +1,37 @@
 'use client'
 
-import { useMapEvents, Marker, Popup, Map } from "react-leaflet"
+import { Marker,Popup,useMapEvents } from "react-leaflet"
 import {useState} from 'react'
+import {Button} from '@chakra-ui/react'
 
-export default function CurrentLocation (){
-  const [position, setPosition] = useState(null)
-
-  const Map = useMapEvents({
-    click() {
-      Map.locate()
-    },
+const CurrentLocation = () =>{
+  const [position, setPosition] = useState('');
+  const map = useMapEvents({
     locationfound(e) {
       setPosition(e.latlng)
-      Map.flyTo(e.latlng, Map.getZoom())
+      map.flyTo(e.latlng, map.getZoom())
     },
-  })
+  });
 
-  return position === null ? null : (
-    <Marker position={position}>
-      <Popup>You are here</Popup>
-    </Marker>
+  const handleButtonClick = () => {
+    map.locate();
+  };
+
+
+  return(
+        <div>
+              {position && (
+                  <Marker position={position}>
+                    <Popup>
+                      Here your location
+                    </Popup>
+                  </Marker>
+              )}
+              <Button colorScheme='teal' onClick={handleButtonClick} style={{position:'absolute',zIndex:1000, marginTop:150}}>
+                    Lokasi Sekarang
+              </Button>
+        </div>
   )
 }
+
+export default CurrentLocation;

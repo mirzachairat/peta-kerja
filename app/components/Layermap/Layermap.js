@@ -1,7 +1,10 @@
 'use client'
+import {useEffect, useState} from 'react'
 import { LayersControl, WMSTileLayer, TileLayer } from "react-leaflet"
 
+
 const Layermap = () => {
+  const [geojsonData,setGeojsonData] = useState('');
 
   const wmsParams = {
     maxZoom: 12,
@@ -43,25 +46,46 @@ const Layermap = () => {
         wmsLayers : 'batasadmin_tiled:Batas Administrasi DKI Jakarta (RW)'
       }
     ]
+  
+
+  useEffect(()=>{
+      const fetchData = async ()=>{
+        try {
+          const username = 'service_dcktrp';
+          const password = 's3rv1c3_dcktrp';
+          const token = btoa(`${username}:${password}`);
+    
+          const response = await fetch(
+            'https://tataruang.jakarta.go.id/server/rest/services/Hosted/Batas_Administrasi_DKI_Jakarta_87788/FeatureServer/0/query?where=1%3D1&outFields=*&f=geojson',
+            {
+              headers: {
+                'Authorization': `Basic ${token}`
+              }
+            }
+            );
+            const data = await response.json();
+            setGeojsonData(data);
+          // Handle response...
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      }
+      fetchData();
+  },[]);
+
     return(
       <>
-      <LayersControl.Overlay checked name="Base Map">
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-      </LayersControl.Overlay>
        {dummyData.map((wms)=>(
           <LayersControl.Overlay key={wms.id} checked name={wms.title}>  
-          <WMSTileLayer
-            version='1.1.0'
-            layers={wms.wmsLayers}
-            url={wms.wmsUrl}
-            tileSize={512} // Adjust tileSize based on your WMS server configuration
-            zoomOffset={-1} // Adjust zoomOffset based on your WMS server configuration
-            {...wmsParams}
-          />
-        </LayersControl.Overlay>
+              <WMSTileLayer
+                version='1.1.0'
+                layers={wms.wmsLayers}
+                url={wms.wmsUrl}
+                tileSize={512} // Adjust tileSize based on your WMS server configuration
+                zoomOffset={-1} // Adjust zoomOffset based on your WMS server configuration
+                {...wmsParams}
+              />
+          </LayersControl.Overlay>
        ))}
        </>
     )   
