@@ -83,7 +83,7 @@ const Geosearch = () =>{
                                 aria-label='Search database'
                                 icon={<SearchIcon />}
                                 />
-                                <Input type='tel' 
+                                <Input type='text' 
                                 value={query}
                                 onChange={handleInputChange}
                                 placeholder='Cari Nama dan Tempat'/> 
