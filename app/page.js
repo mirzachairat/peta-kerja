@@ -15,6 +15,7 @@ import Legend from './components/Legend'
 import CurrentLocation from './components/CurrentLocation/CurrentLocation'
 import { ChakraProvider,Button } from '@chakra-ui/react';
 import Drawertool from './components/Drawertool';
+import Searchbox from './components/Searchbox';
 
 export default function Home() {
   const DEFAULT_CENTER = [-6.179998000000027, 106.83000000000003];
@@ -34,10 +35,10 @@ export default function Home() {
             <Map className={styles.homeMap} height={100} center={centerpoint} zoom={13} style={{position:'absolute',zIndex:1}}>
               {({LayersControl,FeatureGroup}) => (
                 <>
-                  <Drawertool/>
-                  <CurrentLocation centerpoint={centerpoint}/>
+                  <Searchbox/>
+                  {/* <Drawertool/> */}
+                  {/* <CurrentLocation centerpoint={centerpoint}/> */}
                   <LayersControl position="topright">
-                    <Legend/>
                     <Layermap/>
                   </LayersControl>
                   {/* layer group control */}
