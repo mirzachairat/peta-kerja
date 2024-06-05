@@ -17,10 +17,10 @@ const Cardlist = ({title, icon,link}) =>{
                 bg="teal.100"
                 >
                    <Flex justify="center" align="center" mt="4">
-                        <Icon as={icon} alt="" borderRadius="md" boxSize={8} onClick={() => router.push(link)}/>
+                        <Icon as={icon} alt="" borderRadius="md" boxSize={8} onClick={() => router.push(link)} color='teal.500'/>
                    </Flex>
                 <Box>
-                    <Text fontSize="sm">
+                    <Text textAlign='center' fontSize="xs" color='teal.500' >
                     {title}
                     </Text>
                 </Box>

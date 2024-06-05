@@ -2,7 +2,6 @@
 
 import React, {useState, useRef} from "react";
 import { Search2Icon, Icon } from "@chakra-ui/icons"
-import { MdMenu } from "react-icons/md";
 import { DiAptana } from "react-icons/di";
 import { LuLayers,LuPlus } from "react-icons/lu";
 import { FaBars, FaChevronDown } from "react-icons/fa";
@@ -19,6 +18,7 @@ import {
     Grid,
     HStack} from "@chakra-ui/react"
 import { LuAlignStartVertical,LuComputer,LuGalleryVerticalEnd,LuUsers } from "react-icons/lu";
+import Boxtitle from "./Boxtitle";
 
 const Searchbox=({title})=> {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -57,6 +57,21 @@ const Searchbox=({title})=> {
         },
         // Add more cards data as needed
       ];
+
+    const boxData = [
+        {
+            icon:LuLayers,
+            title:'Daftar Layer'
+        },
+        {
+            icon:LuPlus,
+            title:'Tambah Data'
+        },
+        {
+            icon:DiAptana,
+            title:'Pengaturan'
+        }
+    ]  
           
     return(
         <>
@@ -77,7 +92,7 @@ const Searchbox=({title})=> {
                             </div>
                             <InputGroup>
                                 {/* <Icon ref={btnRef} onClick={onOpen} as={MdMenu} boxSize={7} color='blue'/> */}
-                                <Input type="text" placeholder="Search Location" size='sm'/>
+                                <Input type="text" placeholder="Search Location" size='sm' borderColor='teal.100'/>
                                 <InputRightElement>
                                     <Search2Icon/>
                                 </InputRightElement>
@@ -106,33 +121,14 @@ const Searchbox=({title})=> {
                         </div>
                 </Stack>
             </Box> 
-            <Box bg='white' w='10%' zIndex='999' borderRadius='17' boxShadow={colorShadow}>
-                    <Text
-                        align="left"
-                        p="2"
-                    >
-                        <Icon as={LuLayers} boxSize='6'/>
-                        Daftar Layer
-                    </Text> 
-            </Box> 
-            <Box bg='white' w='10%' zIndex='999' borderRadius='17' boxShadow={colorShadow}>
-                    <Text
-                        align="left"
-                        p="2"
-                    >
-                        <Icon as={LuPlus} boxSize='6'/>
-                        Tambah Data
-                    </Text> 
-            </Box> 
-            <Box bg='white' w='10%' zIndex='999' borderRadius='17' boxShadow={colorShadow}>
-                    <Text
-                        align="left"
-                        p="2"
-                    >
-                        <Icon as={DiAptana} boxSize='6'/>
-                        Pengaturan
-                    </Text> 
-            </Box> 
+
+            {boxData.map((card, index)=> (
+                    <Boxtitle
+                        key={card.index}
+                        title={card.title}
+                        icon={card.icon}
+                    />
+            ))}
         </HStack>
         </>
     )
