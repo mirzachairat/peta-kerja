@@ -23,63 +23,61 @@ import {
   } from '@chakra-ui/react'
 import { SearchIcon } from '@chakra-ui/icons'
 import { MdLocationOn } from "react-icons/md";
-import Modal from '../Modaltool'
 import styles from './Drawertool.module.css'
 import Tablistpage from '../Tablistpage'
 
 const Drawertool = () =>{
-    const map = useMap();
+    // const map = useMap();
 
-    const [position, setPosition] = useState('');
+    // const [position, setPosition] = useState('');
     const { isOpen, onOpen, onClose } = useDisclosure()
     const btnRef = React.useRef()
-    const [query, setQuery] = useState('');
-    const [suggestions, setSuggestions] = useState([]);
-    const [showModal, setShowModal] = useState(false)
+    // const [showModal, setShowModal] = useState(false)
+    // const [query, setQuery] = useState('');
+    // const [suggestions, setSuggestions] = useState([]);
 
-    const handleInputChange = async (event) => {
-      const inputValue = event.target.value;
-      setQuery(inputValue);
-      if (inputValue.trim() !== '') {
-        try {
-          const response = await axios.get(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(inputValue)}`);
-          const data = response.data;
-          setSuggestions(data);
-        } catch (error) {
-          console.error('Error fetching suggestions:', error);
-        }
-      } else {
-        setSuggestions([]);
-      }
-    };
+    // const handleInputChange = async (event) => {
+    //   const inputValue = event.target.value;
+    //   setQuery(inputValue);
+    //   if (inputValue.trim() !== '') {
+    //     try {
+    //       const response = await axios.get(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(inputValue)}`);
+    //       const data = response.data;
+    //       setSuggestions(data);
+    //     } catch (error) {
+    //       console.error('Error fetching suggestions:', error);
+    //     }
+    //   } else {
+    //     setSuggestions([]);
+    //   }
+    // };
 
      // Modal Button
-     const [size, setSize] = React.useState('xl')
+    //  const [size, setSize] = React.useState('xl')
 
     //Modal function
     
-    const closeModal=()=>{
-      setShowModal(false)
-    }
+    // const closeModal=()=>{
+    //   setShowModal(false)
+    // }
 
-    const openModal = () =>{
-      setShowModal(isOpen);
-    }  
+    // const openModal = () =>{
+    //   setShowModal(isOpen);
+    // }  
 
-    const handleSuggestionClick = (suggestion) => {
-        const { lat, lon } = suggestion;
-        setPosition([lat,lon]);
-        map.flyTo([lat, lon], map.getZoom()); // Update map view to selected suggestion
-        setQuery('');
-        setSuggestions([]);
-      };
+    // const handleSuggestionClick = (suggestion) => {
+    //     const { lat, lon } = suggestion;
+    //     setPosition([lat,lon]);
+    //     map.flyTo([lat, lon], map.getZoom()); // Update map view to selected suggestion
+    //     setQuery('');
+    //     setSuggestions([]);
+    //   };
 
     return(
         <>
-        <Button colorScheme='teal' onClick={onOpen} style={{position:'absolute',zIndex:1000, marginTop:100}}>
+        <Button bg="white" onClick={onOpen} style={{position:'absolute',zIndex:10}}>
                 Cari Lokasi
         </Button>
-
                 <Drawer
                     isOpen={isOpen}
                     placement='left'
@@ -122,9 +120,6 @@ const Drawertool = () =>{
                               width='300px'>Jelajahi Data
                             </Button>
                             {/* Modal Jelajahi Data */}
-                            <Modal isOpen={showModal} onClose={closeModal}>
-                                <Tablistpage/>
-                            </Modal>
                         </Stack>
                     </DrawerBody>
                     </DrawerContent>

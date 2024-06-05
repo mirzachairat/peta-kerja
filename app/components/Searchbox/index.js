@@ -7,6 +7,7 @@ import { DiAptana } from "react-icons/di";
 import { LuLayers,LuPlus } from "react-icons/lu";
 import { FaBars, FaChevronDown } from "react-icons/fa";
 import Cardlist from "./Cardlist";
+import { useDisclosure } from "@chakra-ui/react";
 
 import { 
     Box, 
@@ -19,33 +20,40 @@ import {
     HStack} from "@chakra-ui/react"
 import { LuAlignStartVertical,LuComputer,LuGalleryVerticalEnd,LuUsers } from "react-icons/lu";
 
-const Searchbox=({title, children})=> {
-    // const { isOpen, onOpen, onClose } = useDisclosure();
+const Searchbox=({title})=> {
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    
     const btnRef = useRef();
     const colorShadow ='0 10px 15px -3px rgba(66, 153, 225, 0.7), 0 4px 6px -2px rgba(66, 153, 225, 0.5)';
-    const [isOpen, setIsOpen] = useState(false);
+    const [IsOpen, setIsOpen] = useState(false);
+    const [showModal, setShowModal] = useState(false)
 
 
     const toggleAccordion = () => {
-        setIsOpen(!isOpen);
+        setIsOpen(!IsOpen);
     };
+
 
     const cardsData = [
         {
-            icon: LuAlignStartVertical,
-          title: 'Atur Tampilan'
+          icon: LuAlignStartVertical,
+          title: 'Atur Tampilan',
+          link: '/dashboard/aturtampilan'
         },
         {
             icon: LuComputer,
-          title: 'Kelola Data'
+          title: 'Kelola Data',
+          link: '/dashboard/keloladata'
         },
         {
             icon: LuGalleryVerticalEnd,
-          title: 'Konfigurasi'
+          title: 'Konfigurasi',
+          link: '/dashboard/konfigurasi'
         },
         {
             icon: LuUsers,
-          title: 'Pengguna'
+          title: 'Pengguna',
+          link: '/dashboard/pengguna'
         },
         // Add more cards data as needed
       ];
@@ -64,7 +72,7 @@ const Searchbox=({title, children})=> {
                             <h2 className="text-xl font-semibold">{title}</h2>
                             <div className="text-gray-600">
                                 <div style={{ float: 'left' }}>
-                                    {isOpen ? <FaChevronDown size={20} /> : <FaBars size={20} />}
+                                    {IsOpen ? <FaChevronDown size={20} /> : <FaBars size={20} />}
                                 </div>
                             </div>
                             <InputGroup>
@@ -77,7 +85,7 @@ const Searchbox=({title, children})=> {
                         </div>
                         <div
                             className={`mt-2 transition-all duration-300 ease-in-out ${
-                            isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+                            IsOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
                             } overflow-hidden`}
                         >
                             <div className="p-1">
@@ -88,6 +96,7 @@ const Searchbox=({title, children})=> {
                                             key={index}
                                             title={card.title}
                                             icon={card.icon}
+                                            link={card.link}
                                         />
                                         ))}
                                     </Grid>

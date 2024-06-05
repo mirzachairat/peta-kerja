@@ -11,10 +11,7 @@ import { EditControl } from 'react-leaflet-draw'
 import 'leaflet/dist/leaflet.css'
 import 'leaflet-draw/dist/leaflet.draw.css'
 import styles from './styles/Home.module.scss'
-import Legend from './components/Legend'
-import CurrentLocation from './components/CurrentLocation/CurrentLocation'
 import { ChakraProvider,Button } from '@chakra-ui/react';
-import Drawertool from './components/Drawertool';
 import Searchbox from './components/Searchbox';
 
 export default function Home() {
@@ -26,7 +23,7 @@ export default function Home() {
       <Layout>
         <Head>
           <title>PETA KERJA</title>
-          <meta name="description" content="Create mapping apps with Next.js Leaflet Starter" />
+          <meta name="description" content="Peta Kerja" />
           <link rel="icon" href="/favicon.ico" />
           <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBWUssGjqzdh26emlYtoy1mxEYcTBPYaCM&libraries=places"></script>
         </Head>

@@ -1,9 +1,12 @@
 'use Client'
 import React from 'react'
-import {Box,Text,Icon,Flex} from '@chakra-ui/react'
+import {Box,Text,Icon,Flex,useDisclosure} from '@chakra-ui/react'
 import { FaBars, FaChevronDown } from "react-icons/fa";
+import { useRouter } from 'next/navigation'
 
-const Cardlist = ({title, icon}) =>{
+const Cardlist = ({title, icon,link}) =>{
+    const router = useRouter()
+    const { onOpen} = useDisclosure()
     return(
         <>  
             <Box
@@ -14,7 +17,7 @@ const Cardlist = ({title, icon}) =>{
                 bg="teal.100"
                 >
                    <Flex justify="center" align="center" mt="4">
-                        <Icon as={icon} alt="" borderRadius="md" boxSize={8} />
+                        <Icon as={icon} alt="" borderRadius="md" boxSize={8} onClick={() => router.push(link)}/>
                    </Flex>
                 <Box>
                     <Text fontSize="sm">
