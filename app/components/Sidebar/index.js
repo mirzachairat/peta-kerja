@@ -1,23 +1,50 @@
-import {Drawer} from '@chakra-ui/react'
+'use client'
+
+import * as React from 'react'
+import {List,ListItem,Icon,Image, Drawer, } from '@chakra-ui/react'
+import { Link } from '@chakra-ui/next-js'
+import { LuLayoutPanelLeft,LuFileCog,LuUsers } from "react-icons/lu";
+import {TfiSettings} from "react-icons/tfi";
+
+
 
 const Sidebar = () =>{
+    const listData = [
+        {
+            icon:LuLayoutPanelLeft,
+            title:'Atur Tampilan',
+            link: '/aturtampilan' 
+        },
+        {
+            icon:LuFileCog,
+            title:'Kelola Data',
+            link: '/keloladata'
+        },
+        {
+            icon:TfiSettings,
+            title:'Kofigurasi',
+            link:'/konfigurasi'
+        },
+        {
+            icon:LuUsers,
+            title:'Pengguna',
+            link: '/pengguna'
+        },
+    ]
     return(
-        <>
-            <Button leftIcon={<IoIosSettings />} colorScheme='pink' variant='solid' onClick={onOpen}>
-                Open
-            </Button>
-            <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
-                    <DrawerOverlay />
-                    <DrawerContent>
-                        <DrawerCloseButton />
-                        <DrawerHeader>Drawer Title</DrawerHeader>
-                        <DrawerBody>
-                            <p>Some content for the drawer</p>
-                        </DrawerBody>
-                    </DrawerContent>
-            </Drawer>
+        <>  
+             <aside className="bg-gray-800 text-white w-64 min-h-screen p-4">
+                        <List className="space-y-2">
+                            {listData.map((card, index) => (
+                                <ListItem display="flex" key={index}>
+                                    <Icon as={card.icon} color='green.500' marginRight="8px"/>
+                                    <Link href={card.link}>{card.title}</Link> 
+                                </ListItem>
+                            ))}
+                        </List>
+                </aside>                     
         </>
     )
 }
 
-export default Drawer
+export default Sidebar

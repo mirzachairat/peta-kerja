@@ -2,8 +2,6 @@
 
 import React, {useState, useRef} from "react";
 import { Search2Icon, Icon } from "@chakra-ui/icons"
-import { DiAptana } from "react-icons/di";
-import { LuLayers,LuPlus } from "react-icons/lu";
 import { FaBars, FaChevronDown } from "react-icons/fa";
 import Cardlist from "./Cardlist";
 import { useDisclosure } from "@chakra-ui/react";
@@ -18,7 +16,6 @@ import {
     Grid,
     HStack} from "@chakra-ui/react"
 import { LuAlignStartVertical,LuComputer,LuGalleryVerticalEnd,LuUsers } from "react-icons/lu";
-import Boxtitle from "./Boxtitle";
 
 const Searchbox=({title})=> {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -38,12 +35,12 @@ const Searchbox=({title})=> {
         {
           icon: LuAlignStartVertical,
           title: 'Atur Tampilan',
-          link: '/dashboard/aturtampilan'
+          link: '/aturtampilan'
         },
         {
             icon: LuComputer,
           title: 'Kelola Data',
-          link: '/dashboard/keloladata'
+          link: '/keloladata'
         },
         {
             icon: LuGalleryVerticalEnd,
@@ -53,25 +50,10 @@ const Searchbox=({title})=> {
         {
             icon: LuUsers,
           title: 'Pengguna',
-          link: '/dashboard/pengguna'
+          link: '/pengguna'
         },
         // Add more cards data as needed
-      ];
-
-    const boxData = [
-        {
-            icon:LuLayers,
-            title:'Daftar Layer'
-        },
-        {
-            icon:LuPlus,
-            title:'Tambah Data'
-        },
-        {
-            icon:DiAptana,
-            title:'Pengaturan'
-        }
-    ]  
+      ]; 
           
     return(
         <>
@@ -121,14 +103,6 @@ const Searchbox=({title})=> {
                         </div>
                 </Stack>
             </Box> 
-
-            {boxData.map((card, index)=> (
-                    <Boxtitle
-                        key={card.index}
-                        title={card.title}
-                        icon={card.icon}
-                    />
-            ))}
         </HStack>
         </>
     )

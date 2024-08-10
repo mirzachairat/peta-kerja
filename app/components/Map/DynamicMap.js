@@ -6,11 +6,10 @@ import * as ReactLeaflet from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import styles from './Map.module.scss';
 import {useStore} from './../../store'
-import MapPopover from '../MapPopover';
 
 const { MapContainer,TileLayer, LayersControl,WMSTileLayer } = ReactLeaflet;
 
-const Map = ({ children, className, width, height, ...rest}) => {
+const DynamicMap = ({ children, className, width, height, ...rest}) => {
   let mapClassName = styles.map;
   
   
@@ -91,12 +90,9 @@ const Map = ({ children, className, width, height, ...rest}) => {
   return (
       <MapContainer className={mapClassName} {...rest}>
           <TileLayer url={url} />
-          <div style={{position:'relative',zIndex:1000, marginTop:320, float:'right'}}>
-            <MapPopover/>
-          </div>
         {children(ReactLeaflet, Leaflet)}
       </MapContainer>
   )
 }
 
-export default Map;
+export default DynamicMap;

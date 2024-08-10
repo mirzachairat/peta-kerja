@@ -15,10 +15,10 @@ import {
 } from "@chakra-ui/react"
 
 import {IoIosSettings} from "react-icons/io"
-import Layoutadmin from "../Layoutadmin"
 import Map from "@app/components/Map"
-import styles from './../../styles/Home.module.scss'
-import {useStore} from './../../store' 
+import styles from './../styles/Home.module.scss'
+import {useStore} from '../store' 
+import Layoutadmin from '@app/components/Layoutadmin'
 
 const Aturtampilan=()=>{
     const position = [-2.5, 118]; // Coordinates for Indonesia
@@ -58,12 +58,10 @@ const Aturtampilan=()=>{
                         fontSize= '14px'                      
                     >
                         <Text>Warna Utama</Text>
-                    <SimpleGrid columns={2} sx={{ overflowX: 'auto', overflowY: 'auto' }}>
+                    <SimpleGrid sx={{ overflowX: 'auto', overflowY: 'auto' }}>
                         <Card>
-                            <Text>Konten 1</Text>
-                        </Card>
-                        <Card>
-                            <Text>Konten 2</Text>
+                            <Text>Warna 1</Text>
+                            <Text>Warna 2</Text>
                         </Card>
                     </SimpleGrid>
                     </Card>
@@ -113,7 +111,6 @@ const Aturtampilan=()=>{
                         </SimpleGrid>
                     </Card>
                 </Flex>
-
                 {/* Map */}
                 <Flex p={2}>
                     <Card p={1} w="100%">
@@ -123,10 +120,7 @@ const Aturtampilan=()=>{
                                 </>
                             )}
                         </Map>
-                        <Grid templateColumns='repeat(4, 1fr)' gap={4} style={{ position: 'relative', zIndex: 20, width: '100%' }}>
-                            <GridItem colSpan={1}  bg='tomato' />
-                            <GridItem colStart={4} colEnd={10} bg='papayawhip' />
-                        </Grid>
+
                     </Card>
                 </Flex>
                 <Flex p={2}>

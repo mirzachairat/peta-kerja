@@ -13,9 +13,11 @@ const DEFAULT_HEIGHT = '100vh';
 
 const Map = (props) => {
   const { width = DEFAULT_WIDTH, height = DEFAULT_HEIGHT } = props;
+  const aspectRatio = parseFloat(width) / parseFloat(height);
   return (
-    <div style={{ aspectRatio: width / height }}>
-      <DynamicMap {...props} />
+    <div style={{ aspectRatio: isNaN(aspectRatio) ? 'auto' : aspectRatio }}>
+      <DynamicMap {...props} >
+      </DynamicMap>
     </div>
   )
 }
