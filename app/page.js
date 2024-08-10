@@ -1,6 +1,7 @@
 'use client'
 
-import Head from 'next/head';
+import React, { useState,useRef } from 'react';
+import Head from 'next/head'
 import Layout from './components/Layout'
 import Section from './components/Section'
 import Layermap from './components/Layermap'
@@ -10,52 +11,49 @@ import { EditControl } from 'react-leaflet-draw'
 import 'leaflet/dist/leaflet.css'
 import 'leaflet-draw/dist/leaflet.draw.css'
 import styles from './styles/Home.module.scss'
-import Legend from './components/Legend'
-import CurrentLocation from './components/CurrentLocation/CurrentLocation'
+import { ChakraProvider,Button } from '@chakra-ui/react';
+import Searchbox from './components/Searchbox';
 
-
-export default function Home() {  
+export default function Home() {
   const DEFAULT_CENTER = [-6.179998000000027, 106.83000000000003];
-  return (
-    <Layout>
-      <Head>
-        <title>PETA KERJA</title>
-        <meta name="description" content="Create mapping apps with Next.js Leaflet Starter" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+  const [centerpoint, setCenterPoint] = useState(DEFAULT_CENTER);
 
-      <Section>
-          <Map className={styles.homeMap} height={100} center={DEFAULT_CENTER} zoom={15}>
-            {({ TileLayer, LayersControl,FeatureGroup}) => (
-              <>
-                <LayersControl position="topright">
-                  <LayersControl.Overlay checked name="Base Map">
-                    <TileLayer
-                      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    />
-                 {/* <GeoSearchMap/> */}
-                  </LayersControl.Overlay>
-                  <Legend/>
-                 <Layermap/>
-                 <CurrentLocation/>
-                </LayersControl>
-                {/* layer group control */}
-                <FeatureGroup>
-                  <EditControl
-                    position="topright"
-                    draw={{
-                      rectangle: false,
-                      circle: false,
-                    }}
-                  />
-                  
-                </FeatureGroup>
-                <ScaleControl imperial={false} maxWidth={500} />
-              </>
-            )}
-          </Map>
-      </Section>
-    </Layout>
+  return (
+    <ChakraProvider>
+      <Layout>
+        <Head>
+          <title>PETA KERJA</title>
+          <meta name="description" content="Peta Kerja" />
+          <link rel="icon" href="/favicon.ico" />
+          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBWUssGjqzdh26emlYtoy1mxEYcTBPYaCM&libraries=places"></script>
+        </Head>
+
+        <Section>
+            <Map className={styles.homeMap} height={100} center={centerpoint} zoom={13} style={{position:'absolute',zIndex:1}}>
+              {({LayersControl,FeatureGroup}) => (
+                <>
+                  <Searchbox/>
+                  {/* <Drawertool/> */}
+                  {/* <CurrentLocation centerpoint={centerpoint}/> */}
+                  <LayersControl position="topright">
+                    <Layermap/>
+                  </LayersControl>
+                  {/* layer group control */}
+                  <FeatureGroup>
+                    <EditControl
+                      position="topright"
+                      draw={{
+                        rectangle: false,
+                        circle: false,
+                      }}
+                    />       
+                  </FeatureGroup>
+                  <ScaleControl imperial={false} maxWidth={500} />
+                </>
+              )}
+            </Map>
+        </Section>
+      </Layout>
+  </ChakraProvider>
   );
 }
